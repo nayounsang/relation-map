@@ -33,10 +33,10 @@ export class OneToManyMap<O = any, M = any> {
     return this.manyToOne.get(m);
   }
   getOneToMany() {
-    return this.oneToMany;
+    return this.oneToMany as ReadonlyMap<O, Set<M>>;
   }
   getManyToIne() {
-    return this.manyToOne;
+    return this.manyToOne as ReadonlyMap<M, O>;
   }
   deleteByMany(m: M) {
     const o = this.manyToOne.get(m);

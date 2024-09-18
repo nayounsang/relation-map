@@ -18,11 +18,11 @@ export class BiMap<L = any, R = any> {
     this.leftToRight.set(left, right);
     this.rightToLeft.set(right, left);
   }
-  getLeftToRight(): Map<L, R> {
-    return this.leftToRight;
+  getLeftToRight(): ReadonlyMap<L, R> {
+    return this.leftToRight as ReadonlyMap<L, R>;
   }
-  getRightToLeft(): Map<R, L> {
-    return this.rightToLeft;
+  getRightToLeft(): ReadonlyMap<R, L> {
+    return this.rightToLeft as ReadonlyMap<R, L>;
   }
   getByLeft(left: L): R | undefined {
     return this.leftToRight.get(left);
