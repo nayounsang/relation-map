@@ -4,7 +4,7 @@ import * as path from "path";
 // Function to generate a table of contents from a given README file content
 function generateTOC(fileContent: string): string {
   const lines = fileContent.split("\n");
-  let toc: string[] = [];
+  let toc: string[] = ["**Table of contents**"];
 
   // Regular expression to match headers up to ### level
   const headerRegex = /^(#{1,3})\s+(.*)/;

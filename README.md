@@ -1,4 +1,5 @@
 <!-- TOC -->
+**Table of contents**
 - [Relation map](#relation-map)
   - [Install](#install)
   - [Link](#link)
@@ -7,8 +8,8 @@
     - [Term Explanation](#term-explanation)
     - [Usage](#usage)
   - [OneToManyMap](#onetomanymap)
-    - [Term Explanation](#term-explanation-2)
-    - [Usage](#usage-2)
+    - [Term Explanation](#term-explanation-1)
+    - [Usage](#usage-1)
 <!-- TOC -->
 
 # Relation map
