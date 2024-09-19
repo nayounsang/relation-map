@@ -26,6 +26,14 @@ yarn add relation-map
 - Quick modification and access to "left" and "right" are possible.
 - Duplication is not allowed for the same "left" and "right".
 
+### Term Explanation
+
+**There is basically no priority between "left" and "right".**
+
+- left: This value is used as the `left` key in the BiMap. Each `left` can only be mapped to a single `right`. You can use the `left` to look up or delete the corresponding `right`.
+
+- right: This value is used as the `right` key in the BiMap. Each `right` can only be mapped to a single `left`. You can use the `right` to look up or delete the corresponding `left`.
+
 ### Usage
 
 #### create instance
@@ -111,6 +119,12 @@ myMap.getRightToLeft();
 - A 1:N relationship between "one" and "many" is maintained when updating, adding and deleting.
 - Quick modification and access to "one" and "many" are possible.
 - Duplication is not allowed for the same "one" and "many".
+
+### Term Explanation
+- one: Represents a unique key in the OneToManyMap structure, which can be associated with multiple `many`. Each `one` can have several corresponding `many` values, but each `many` value can only belong to a single `one`. For example, in a teacher-student relationship, a teacher (one) can have multiple students (many), but each student is linked to only one teacher in this context.
+
+- many: Represents values that are associated with a single `one`. Each many value is connected to only one `one`, ensuring that it does not belong to multiple `one` keys simultaneously. This is crucial for maintaining the 1
+relationship where `one` key is mapped to multiple values without overlapping with other keys. Using the teacher-student analogy, each student (many) is linked to one specific teacher (one).
 
 ### Usage
 
