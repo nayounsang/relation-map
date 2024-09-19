@@ -6,7 +6,8 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc --project tsconfig.build.json",
-    "test": "jest"
+    "test": "jest",
+    "gen-toc":"ts-node ./scripts/generateTOC.ts"
   },
   "repository": {
     "type": "git",

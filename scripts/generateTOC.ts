@@ -49,5 +49,5 @@ function insertTOCToFile(filePath: string): void {
     console.log('Table of Contents has been updated in README.md');
 }
 
-const readmePath = path.join(__dirname, 'README.md');
+const readmePath = path.join(__dirname, '../README.md');
 insertTOCToFile(readmePath);
