@@ -1,3 +1,16 @@
+<!-- TOC -->
+- [Relation map](#relation-map)
+  - [Install](#install)
+  - [Link](#link)
+- [Features](#features)
+  - [BiMap](#bimap)
+    - [Term Explanation](#term-explanation)
+    - [Usage](#usage)
+  - [OneToManyMap](#onetomanymap)
+    - [Term Explanation](#term-explanation)
+    - [Usage](#usage)
+<!-- TOC -->
+
 # Relation map
 
 > A flexible relational mapping library supporting 1:1 and 1:N
