@@ -1,6 +1,6 @@
 {
   "name": "relation-map",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A flexible relational mapping library supporting 1:1 and 1:N",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
