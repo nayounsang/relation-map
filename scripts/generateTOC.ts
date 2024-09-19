@@ -41,7 +41,7 @@ function insertTOCToFile(filePath: string): void {
     const contentWithoutOldTOC = originalContent.replace(new RegExp(`^${tocMarker}[\\s\\S]*?${tocMarker}`, 'm'), '');
 
     // Create new content with TOC at the top
-    const newContent = `${tocMarker}\n${tocContent}\n${tocMarker}\n\n${contentWithoutOldTOC}`;
+    const newContent = `${tocMarker}\n${tocContent}\n${tocMarker}${contentWithoutOldTOC}`;
 
     // Write the new content back to the README.md file
     fs.writeFileSync(filePath, newContent, 'utf-8');

@@ -12,10 +12,6 @@
     - [Usage](#usage)
 <!-- TOC -->
 
-
-
-
-
 # Relation map
 
 > A flexible relational mapping library supporting 1:1 and 1:N
