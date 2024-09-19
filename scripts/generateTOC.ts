@@ -4,10 +4,13 @@ import * as path from 'path';
 // Function to generate a table of contents from a given README file content
 function generateTOC(fileContent: string): string {
     const lines = fileContent.split('\n');
-    let toc: string[] = ["**Table of contents**"];
+    let toc: string[] = [];
 
     // Regular expression to match headers up to ### level
     const headerRegex = /^(#{1,3})\s+(.*)/;
+
+    // Dictionary to keep track of header occurrences
+    const headerCount: { [key: string]: number } = {};
 
     for (const line of lines) {
         const match = headerRegex.exec(line);
@@ -15,8 +18,16 @@ function generateTOC(fileContent: string): string {
             const [ , hashes, title ] = match;
             const level = hashes.length;
             if (level <= 3) {
-                // Generate the anchor link by converting the title to lowercase, replacing spaces with hyphens and removing special characters
-                const anchor = title.trim().toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-');
+                let anchor = title.trim().toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-');
+                
+                // Increment header count for unique identification
+                if (headerCount[anchor]) {
+                    headerCount[anchor]++;
+                    anchor = `${anchor}-${headerCount[anchor]}`;
+                } else {
+                    headerCount[anchor] = 1;
+                }
+
                 // Create the TOC entry with proper indentation
                 toc.push(`${'  '.repeat(level - 1)}- [${title.trim()}](#${anchor})`);
             }
