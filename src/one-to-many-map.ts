@@ -35,7 +35,7 @@ export class OneToManyMap<O = any, M = any> {
   getOneToMany() {
     return this.oneToMany as ReadonlyMap<O, Set<M>>;
   }
-  getManyToIne() {
+  getManyToOne() {
     return this.manyToOne as ReadonlyMap<M, O>;
   }
   deleteByMany(m: M) {
