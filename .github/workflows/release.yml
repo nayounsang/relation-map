@@ -9,7 +9,7 @@ jobs:
   release:
     permissions:
       contents: write  
-      
+
     runs-on: ubuntu-latest
 
     steps:
@@ -40,11 +40,23 @@ jobs:
           echo "new_version=$(node -p -e "require('./package.json').version")" >> $GITHUB_ENV
 
       # version update in git and push
-      - name: Push changes and tag
+      - name: Push changes to release branch
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          git push origin main --follow-tags
+          git checkout -b release-${{ github.run_number }}
+          git push origin release-${{ github.run_number }}
+      
+      # circumvent the branch protect rules
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "chore: update version to ${{ steps.bump_version.outputs.new_version }}"
+          branch: release-${{ github.run_number }}
+          base: main
+          title: "Release ${{ steps.bump_version.outputs.new_version }}"
+          body: "Automated release created by GitHub Actions."
 
       - name: Publish to npm
         env:
