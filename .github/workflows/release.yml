@@ -57,6 +57,10 @@ jobs:
           base: main
           title: "Release ${{ steps.bump_version.outputs.new_version }}"
           body: "Automated release created by GitHub Actions."
+      
+      - name: Create .npmrc file
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
 
       - name: Publish to npm
         env:
