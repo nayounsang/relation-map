@@ -35,9 +35,11 @@ jobs:
           git config --global user.email "${{ secrets.ADMIN_EMAIL }}"
           git config --global user.name "${{ secrets.ADMIN_NAME }}"
           git checkout -b release-${{ github.run_number }}
+          git add package.json package-lock.json
+          git commit -m "fix: clean working tree"
           npm version patch -m "chore(release): bump version to %s"
           git add package.json package-lock.json
-          git commit -m "chore: update version"
+          git commit -m "chore: version up"
           git push origin release-${{ github.run_number }}
           echo "new_version=$(node -p -e "require('./package.json').version")" >> $GITHUB_ENV
 
