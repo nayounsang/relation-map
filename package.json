@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "jest && tsc --project tsconfig.build.json",
+    "build": "tsc --project tsconfig.build.json",
     "test": "jest",
     "gen-toc":"ts-node ./scripts/generateTOC.ts"
   },
