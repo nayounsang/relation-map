@@ -1,11 +1,11 @@
 {
   "name": "relation-map",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A flexible relational mapping library supporting 1:1 and 1:N",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc --project tsconfig.build.json",
+    "build": "jest && tsc --project tsconfig.build.json",
     "test": "jest",
     "gen-toc":"ts-node ./scripts/generateTOC.ts"
   },
