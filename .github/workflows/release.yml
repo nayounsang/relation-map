@@ -34,6 +34,7 @@ jobs:
         run: |
           git config --global user.email "${{ secrets.ADMIN_EMAIL }}"
           git config --global user.name "${{ secrets.ADMIN_NAME }}"
+          git checkout -b release-${{ github.run_number }}
           git add .
           git commit -m "fix: clean working tree"
           npm version patch -m "chore(release): bump version to %s"
