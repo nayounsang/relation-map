@@ -1,0 +1,14 @@
+blank_issues_enabled: false
+contact_links:
+  - name: "Feature Request"
+    url: "/nayounsang/relation-map/issues/new?template=feature_request.md"
+    about: "Suggest a new feature or enhancement for the project."
+  - name: "Bug Report"
+    url: "/nayounsang/relation-map/issues/new?template=bug_report.md"
+    about: "Report a bug to help us improve."
+  - name: "Question"
+    url: "/nayounsang/relation-map/issues/new?template=question.md"
+    about: "Ask a question about the project."
+  - name: "Others"
+    url: "/nayounsang/relation-map/issues/new?template=others.md"
+    about: "Open an issue for something else."
