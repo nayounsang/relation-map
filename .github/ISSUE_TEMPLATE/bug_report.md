@@ -12,11 +12,11 @@ A description of what the bug is.
 
 ## Environment
 
-Environment where the bug occurred
+Environment where the bug occurred.
 
-[ ] Node
-[ ] Browser
-[ ] Others(Please enter below)
+- [ ] Node
+- [ ] Browser
+- [ ] Others (Please enter below)
 
 ## To Reproduce
 

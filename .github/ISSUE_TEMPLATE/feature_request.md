@@ -6,6 +6,16 @@ labels: "enhancement"
 assignees: ""
 ---
 
+## About
+
+What is this issue about?
+
+- [ ] Existing code or feature
+- [ ] New code or feature
+- [ ] Documentation
+- [ ] working process
+- [ ] Others
+
 ## Feature Description
 
 Describe the feature you want to propose in detail.
