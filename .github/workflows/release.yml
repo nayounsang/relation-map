@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main
+      
+permissions:
+  contents: write  
 
 jobs:
   release:
@@ -41,8 +44,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
         run: |
-          git config --global user.email "${{ secrets.ADMIN_EMAIL }}"
-          git config --global user.name "${{ secrets.ADMIN_NAME }}"
           git push origin main --follow-tags
 
       - name: Publish to npm
