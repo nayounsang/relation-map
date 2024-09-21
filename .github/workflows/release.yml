@@ -28,13 +28,40 @@ jobs:
       - name: Build project
         run: npm run build
 
+      - name: Check if 'release' branch exists
+        id: check_branch
+        run: |
+          BRANCH_NAME="release"
+          REPO_OWNER=$(echo "${{ github.repository }}" | cut -d'/' -f1)
+          REPO_NAME=$(echo "${{ github.repository }}" | cut -d'/' -f2)
+          BRANCH_EXISTS=$(curl -s -o /dev/null -w "%{http_code}" \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/branches/$BRANCH_NAME)
+
+          if [ "$BRANCH_EXISTS" -eq 200 ]; then
+            echo "Branch $BRANCH_NAME exists."
+            echo "BRANCH_EXISTS=true" >> $GITHUB_ENV
+          else
+            echo "Branch $BRANCH_NAME does not exist."
+            echo "BRANCH_EXISTS=false" >> $GITHUB_ENV
+
+      - name: Pull 'release' branch
+        if: env.BRANCH_EXISTS == 'true'
+        run: |
+          git fetch origin release
+          git pull origin release
+
+      - name: Generate 'release' branch
+        if: env.BRANCH_EXISTS == 'false'
+        run: |
+          git checkout -b release
+
       # update version
       - name: Bump version and create new tag
         id: bump_version
         run: |
           git config --global user.email "${{ secrets.ADMIN_EMAIL }}"
           git config --global user.name "${{ secrets.ADMIN_NAME }}"
-          git checkout -b release-${{ github.run_number }}
           if [ -z "$(git status --porcelain)" ]; then
             echo "Working tree is clean. Skipping git add and commit."
           else
