@@ -49,6 +49,7 @@ jobs:
       - name: Pull 'release' branch
         if: env.BRANCH_EXISTS == 'true'
         run: |
+          git checkout release
           git fetch origin release
           git pull origin release
 
