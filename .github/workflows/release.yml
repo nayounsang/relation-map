@@ -34,28 +34,16 @@ jobs:
         run: |
           git config --global user.email "${{ secrets.ADMIN_EMAIL }}"
           git config --global user.name "${{ secrets.ADMIN_NAME }}"
-          git checkout -b release-${{ github.run_number }}
           git add .
           git commit -m "fix: clean working tree"
           npm version patch -m "chore(release): bump version to %s"
-          git push origin release-${{ github.run_number }}
           echo "new_version=$(node -p -e "require('./package.json').version")" >> $GITHUB_ENV
 
-      # circumvent the branch protect rules
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: "chore: update version to ${{ steps.bump_version.outputs.new_version }}"
-          branch: release-${{ github.run_number }}
-          base: main
-          title: "Release ${{ steps.bump_version.outputs.new_version }}"
-          body: "Automated release created by GitHub Actions."
+      - name: Create .npmrc file
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
 
-      # Enable Auto Merge for the Pull Request
-      - name: Enable Auto-Merge
-        uses: peter-evans/enable-pull-request-automerge@v2
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          pull-request-number: ${{ steps.create-pull-request.outputs.pull-request-number }}
-          merge-method: squash
+      - name: Publish to npm
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} 
+        run: npm publish
