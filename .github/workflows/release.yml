@@ -34,18 +34,12 @@ jobs:
         run: |
           git config --global user.email "${{ secrets.ADMIN_EMAIL }}"
           git config --global user.name "${{ secrets.ADMIN_NAME }}"
+          git checkout -b release-${{ github.run_number }}
+          npm version patch -m "chore(release): bump version to %s"
           git add package.json package-lock.json
           git commit -m "chore: update version"
-          npm version patch -m "chore(release): bump version to %s"
-          echo "new_version=$(node -p -e "require('./package.json').version")" >> $GITHUB_ENV
-
-      # version update in git and push
-      - name: Push changes to release branch
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          git checkout -b release-${{ github.run_number }}
           git push origin release-${{ github.run_number }}
+          echo "new_version=$(node -p -e "require('./package.json').version")" >> $GITHUB_ENV
 
       # circumvent the branch protect rules
       - name: Create Pull Request
@@ -57,7 +51,7 @@ jobs:
           base: main
           title: "Release ${{ steps.bump_version.outputs.new_version }}"
           body: "Automated release created by GitHub Actions."
-          
+
       # Enable Auto Merge for the Pull Request
       - name: Enable Auto-Merge
         uses: peter-evans/enable-pull-request-automerge@v2
