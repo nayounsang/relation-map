@@ -21,6 +21,11 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Config identity
+        run: |
+          git config --global user.email "${{ secrets.ADMIN_EMAIL }}"
+          git config --global user.name "${{ secrets.ADMIN_NAME }}"
+
       - name: Create and checkout release branch
         run: |
           git checkout -b release
@@ -44,7 +49,7 @@ jobs:
             git add .
             git commit -m "fix: clean working tree"
           fi
-          
+
       - name: Bump version and create new tag
         run: |
           npm version patch -m "chore(release): bump version to %s"
