@@ -19,65 +19,27 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "20"
-      
-      - name: Config identity
-        run: |
-          git config --global user.email "${{ secrets.ADMIN_EMAIL }}"
-          git config --global user.name "${{ secrets.ADMIN_NAME }}"
-      
-      - name: Generate 'release' branch
+          node-version: '20'
+
+      - name: Create and checkout release branch
         run: |
           git checkout -b release
 
-      - name: Check if 'release' branch exists
-        id: check_branch
+      - name: Get NPM package version
+        id: get_version
         run: |
-          BRANCH_NAME="release"
-          REPO_OWNER=$(echo "${{ github.repository }}" | cut -d'/' -f1)
-          REPO_NAME=$(echo "${{ github.repository }}" | cut -d'/' -f2)
-          BRANCH_EXISTS=$(curl -s -o /dev/null -w "%{http_code}" \
-            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-            https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/branches/$BRANCH_NAME)
+          PACKAGE_NAME="your-package-name"
+          VERSION=$(npm view $PACKAGE_NAME version)
+          echo "npm_version=$VERSION" >> $GITHUB_ENV
 
-          if [ "$BRANCH_EXISTS" -eq 200 ]; then
-            echo "Branch $BRANCH_NAME exists."
-            echo "BRANCH_EXISTS=true" >> $GITHUB_ENV
-          else
-            echo "Branch $BRANCH_NAME does not exist."
-            echo "BRANCH_EXISTS=false" >> $GITHUB_ENV
-          fi
-
-      - name: Pull 'release' branch
-        if: env.BRANCH_EXISTS == 'true'
+      - name: Update package.json version
         run: |
-          if [ -z "$(git status --porcelain)" ]; then
-            echo "Working tree is clean. Skipping git add and commit."
-          else
-            git add .
-            git commit -m "fix: clean working tree"
-          fi
-          git pull origin release --rebase
-      
-      - name: Install dependencies
-        run: npm install
+          npm version ${{ env.npm_version }} --no-git-tag-version
 
-      - name: Build project
-        run: npm run build
-
-      # update version
       - name: Bump version and create new tag
-        id: bump_version
         run: |
-          if [ -z "$(git status --porcelain)" ]; then
-            echo "Working tree is clean. Skipping git add and commit."
-          else
-            git add .
-            git commit -m "fix: clean working tree"
-          fi
           npm version patch -m "chore(release): bump version to %s"
-          echo "new_version=$(node -p -e "require('./package.json').version")" >> $GITHUB_ENV
-          git push origin release
+          git push origin release --tags
 
       - name: Create .npmrc file
         run: |
@@ -85,5 +47,9 @@ jobs:
 
       - name: Publish to npm
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} 
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npm publish
+
+      - name: Delete remote release branch
+        run: |
+          git push origin --delete release
