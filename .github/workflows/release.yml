@@ -31,12 +31,6 @@ jobs:
         run: |
           git checkout -b release
 
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build project
-        run: npm run build
-
       - name: Check if 'release' branch exists
         id: check_branch
         run: |
@@ -64,7 +58,13 @@ jobs:
             git add .
             git commit -m "fix: clean working tree"
           fi
-          git pull origin release --rebase
+          git pull origin release --no-rebase
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
 
       # update version
       - name: Bump version and create new tag
