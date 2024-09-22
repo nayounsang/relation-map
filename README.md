@@ -6,13 +6,31 @@
 - [Problem and Solve](#problem-and-solve)
   - [Performance due to time complexity](#performance-due-to-time-complexity)
   - [Boilerplate to maintain relationship](#boilerplate-to-maintain-relationship)
+- [Feedback \& Contributions](#feedback--contributions)
 - [Features](#features)
   - [BiMap](#bimap)
     - [Term Explanation](#term-explanation)
     - [Usage](#usage)
+      - [create instance](#create-instance)
+      - [set](#set)
+      - [delete](#delete)
+      - [get](#get)
+      - [has](#has)
+      - [clear](#clear)
+      - [size](#size)
+      - [get member variables](#get-member-variables)
   - [OneToManyMap](#onetomanymap)
     - [Term Explanation](#term-explanation-1)
     - [Usage](#usage-1)
+      - [create instance](#create-instance-1)
+      - [set](#set-1)
+      - [delete](#delete-1)
+      - [get](#get-1)
+      - [has](#has-1)
+      - [clear](#clear-1)
+      - [size](#size-1)
+      - [get member variables](#get-member-variables-1)
+      - [count](#count)
 <!-- TOC -->
 
 # Relation map
@@ -136,6 +154,13 @@ const biMap = new BiMap();
 // ...
 biMap.set("10", 7); // End
 ```
+
+# Feedback & Contributions
+
+**We welcome all types of feedback and contributions! If you have any of the following, please feel free to open an [issue](https://github.com/nayounsang/relation-map/issues/new/choose)**
+
+Your input is valuable to us and helps improve the project for everyone. Thank you for contributing!
+
 
 # Features
 
