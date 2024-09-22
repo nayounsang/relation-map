@@ -58,7 +58,7 @@ jobs:
             git add .
             git commit -m "fix: clean working tree"
           fi
-          git pull origin release --no-rebase --allow-unrelated-histories
+          git merge origin/release
       
       - name: Install dependencies
         run: npm install
