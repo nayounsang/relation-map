@@ -53,7 +53,6 @@ jobs:
       - name: Bump version and create new tag
         run: |
           npm version patch -m "chore(release): bump version to %s"
-          git push origin release --tags
 
       - name: Create .npmrc file
         run: |
@@ -63,7 +62,3 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npm publish
-
-      - name: Delete remote release branch
-        run: |
-          git push origin --delete release
