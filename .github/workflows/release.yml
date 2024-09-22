@@ -54,7 +54,7 @@ jobs:
         if: env.BRANCH_EXISTS == 'true'
         run: |
           git checkout release
-          git pull origin release
+          git pull origin release --rebase
 
       # update version
       - name: Bump version and create new tag
