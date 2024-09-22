@@ -54,6 +54,12 @@ jobs:
         if: env.BRANCH_EXISTS == 'true'
         run: |
           git checkout release
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "Working tree is clean. Skipping git add and commit."
+          else
+            git add .
+            git commit -m "fix: clean working tree"
+          fi
           git pull origin release --rebase
 
       # update version
