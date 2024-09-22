@@ -48,12 +48,6 @@ jobs:
             echo "Branch $BRANCH_NAME does not exist."
             echo "BRANCH_EXISTS=false" >> $GITHUB_ENV
           fi
-      
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build project
-        run: npm run build
 
       - name: Pull 'release' branch
         if: env.BRANCH_EXISTS == 'true'
@@ -65,11 +59,23 @@ jobs:
             git commit -m "fix: clean working tree"
           fi
           git pull origin release --no-rebase --allow-unrelated-histories
+      
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
 
       # update version
       - name: Bump version and create new tag
         id: bump_version
         run: |
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "Working tree is clean. Skipping git add and commit."
+          else
+            git add .
+            git commit -m "fix: clean working tree"
+          fi
           npm version patch -m "chore(release): bump version to %s"
           echo "new_version=$(node -p -e "require('./package.json').version")" >> $GITHUB_ENV
           git push origin release
