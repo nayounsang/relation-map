@@ -27,6 +27,10 @@ jobs:
 
       - name: Build project
         run: npm run build
+      
+      - name: Generate 'release' branch
+        run: |
+          git checkout -b release
 
       - name: Check if 'release' branch exists
         id: check_branch
@@ -50,13 +54,7 @@ jobs:
         if: env.BRANCH_EXISTS == 'true'
         run: |
           git checkout release
-          git fetch origin release
           git pull origin release
-
-      - name: Generate 'release' branch
-        if: env.BRANCH_EXISTS == 'false'
-        run: |
-          git checkout -b release
 
       # update version
       - name: Bump version and create new tag
