@@ -33,7 +33,7 @@ jobs:
       - name: Get NPM package version
         id: get_version
         run: |
-          PACKAGE_NAME="your-package-name"
+          PACKAGE_NAME="relation-map"
           VERSION=$(npm view $PACKAGE_NAME version)
           echo "npm_version=$VERSION" >> $GITHUB_ENV
 
