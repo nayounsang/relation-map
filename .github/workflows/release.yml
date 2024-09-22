@@ -21,16 +21,21 @@ jobs:
         with:
           node-version: "20"
           cache: "npm"
+      
+      - name: Config identity
+        run: |
+          git config --global user.email "${{ secrets.ADMIN_EMAIL }}"
+          git config --global user.name "${{ secrets.ADMIN_NAME }}"
+      
+      - name: Generate 'release' branch
+        run: |
+          git checkout -b release
 
       - name: Install dependencies
         run: npm install
 
       - name: Build project
         run: npm run build
-      
-      - name: Generate 'release' branch
-        run: |
-          git checkout -b release
 
       - name: Check if 'release' branch exists
         id: check_branch
@@ -53,7 +58,6 @@ jobs:
       - name: Pull 'release' branch
         if: env.BRANCH_EXISTS == 'true'
         run: |
-          git checkout release
           if [ -z "$(git status --porcelain)" ]; then
             echo "Working tree is clean. Skipping git add and commit."
           else
@@ -66,14 +70,6 @@ jobs:
       - name: Bump version and create new tag
         id: bump_version
         run: |
-          git config --global user.email "${{ secrets.ADMIN_EMAIL }}"
-          git config --global user.name "${{ secrets.ADMIN_NAME }}"
-          if [ -z "$(git status --porcelain)" ]; then
-            echo "Working tree is clean. Skipping git add and commit."
-          else
-            git add .
-            git commit -m "fix: clean working tree"
-          fi
           npm version patch -m "chore(release): bump version to %s"
           echo "new_version=$(node -p -e "require('./package.json').version")" >> $GITHUB_ENV
           git push origin release
