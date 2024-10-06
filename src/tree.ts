@@ -31,7 +31,7 @@ export class Tree<T = any> {
     this.nodeMetaMap.get(current)?.children.add(child);
     this.nodeMetaMap.set(
       child,
-      this.initNode({ depth: this.getDepth(current), parent: current })
+      this.initNode({ depth: this.getDepth(current) as number + 1, parent: current })
     );
   }
 
@@ -60,7 +60,9 @@ export class Tree<T = any> {
   }
   delete(data: T) {
     if (data === this.rootData) {
-      throw new Error(`You cant't delete root node with this method.`);
+      throw new Error(
+        `You cant't delete root node with this method. If you want to clear memory, use destroy()`
+      );
     }
     const parent = this.nodeMetaMap.get(data)?.parent;
     if (parent) {
@@ -71,7 +73,7 @@ export class Tree<T = any> {
       this.nodeMetaMap.delete(node);
     }
   }
-  search(start: T = this.rootData) {
+  search(start: T) {
     const nodes = new Set<T>();
     nodes.add(start);
     const stack: T[] = [start];
@@ -105,5 +107,12 @@ export class Tree<T = any> {
   }
   getChildren(data: T) {
     return this.nodeMetaMap.get(data)?.children;
+  }
+  getAllNodes() {
+    return [...this.nodeMetaMap.keys()];
+  }
+  destroy() {
+    this.nodeMetaMap.clear();
+    this.rootData = undefined as unknown as T;
   }
 }
