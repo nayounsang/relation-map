@@ -31,6 +31,20 @@
       - [size](#size-1)
       - [get member variables](#get-member-variables-1)
       - [count](#count)
+  - [Tree](#tree)
+    - [Term Explanation](#term-explanation-2)
+    - [Usage](#usage-2)
+      - [add child](#add-child)
+      - [search](#search)
+      - [delete](#delete-2)
+      - [replace](#replace)
+      - [root](#root)
+      - [has](#has-2)
+      - [get parent](#get-parent)
+      - [get children](#get-children)
+      - [get depth](#get-depth)
+      - [get all nodes](#get-all-nodes)
+      - [destroy](#destroy)
 <!-- TOC -->
 
 # Relation map
@@ -382,3 +396,23 @@ myMap.set("a", 5);
 myMap.set("b", 20);
 myMap.count(); // {"a" => 2, "b" => 1}
 ```
+
+## Tree
+### Term Explanation
+- node
+- parent
+- children
+- root
+- sub tree
+### Usage
+#### add child
+#### search 
+#### delete
+#### replace
+#### root
+#### has
+#### get parent
+#### get children
+#### get depth
+#### get all nodes
+#### destroy
