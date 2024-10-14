@@ -400,11 +400,13 @@ myMap.count(); // {"a" => 2, "b" => 1}
 
 ## Tree
 ### Term Explanation
-- node
-- parent
-- children
-- root
-- sub tree
+![image](https://github.com/user-attachments/assets/ece611e9-935a-4eed-82bd-8520e37b0c13)
+
+- Structure the data of the `Tree` with `Node`.
+- `Parent` exists above a `Node`. The depth is 1 less.
+- Nodes directly connected to a node are `children`.
+- The `Tree` starts from the `Root`. The `Root`depth of this library is `0`.
+- A `Subtree` contains a `Node` itself and `all nodes` below that node.
 ### Usage
 #### create instance
 ```typescript
