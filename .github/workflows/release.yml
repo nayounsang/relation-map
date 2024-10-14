@@ -39,9 +39,14 @@ jobs:
           VERSION=$(npm view $PACKAGE_NAME version)
           echo "npm_version=$VERSION" >> $GITHUB_ENV
 
-      - name: Update package.json version
+      - name: Compare and Update package.json version
         run: |
-          npm version ${{ env.npm_version }} --no-git-tag-version
+            CURRENT_VERSION=$(cat package.json | jq -r '.version')
+            if [ "$CURRENT_VERSION" != "${{ env.npm_version }}" ]; then
+              npm version ${{ env.npm_version }} --no-git-tag-version
+            else
+              echo "Versions are the same, no need to update."
+            fi
 
       - name: Clean working tree
         run: |
