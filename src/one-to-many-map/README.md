@@ -1,3 +1,10 @@
+<!-- TOC -->
+**Table of contents**
+  - [OneToManyMap](#onetomanymap)
+    - [Term Explanation](#term-explanation)
+    - [Usage](#usage)
+<!-- TOC -->
+
 ## OneToManyMap
 
 - A 1:N relationship between "one" and "many" is maintained when updating, adding and deleting.

@@ -1,3 +1,10 @@
+<!-- TOC -->
+**Table of contents**
+  - [BiMap](#bimap)
+    - [Term Explanation](#term-explanation)
+    - [Usage](#usage)
+<!-- TOC -->
+
 ## BiMap
 
 - A one-to-one relationship between "left" and "right" is maintained when updating, adding and deleting.
