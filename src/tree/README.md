@@ -1,4 +1,15 @@
+<!-- TOC -->
+**Table of contents**
+  - [Tree](#tree)
+    - [Term Explanation](#term-explanation)
+    - [Usage](#usage)
+<!-- TOC -->
+
 ## Tree
+
+- A tree data structure is a hierarchical model where nodes are connected by edges, starting with a root node and branching into child nodes.
+- Each node can have zero or more children, and nodes without children are called leaf nodes.
+- Trees are used to represent hierarchical data, like file systems or organizational charts, and support efficient search and traversal.
 
 ### Term Explanation
 
