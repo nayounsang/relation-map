@@ -25,52 +25,57 @@
 
 #### create instance
 
+- Construct with the root data.
+- In this example, root is `1`.
+
 ```typescript
 const tree = new Tree<number>(1);
 ```
 
-- Construct with the root data.
-- In this example, root is `1`.
-
 #### add child
-
-```typescript
-tree.addChild(current, child);
-```
 
 - Add the new node at child position of current node.
 - Current node should exist in tree. If not exist, it throw the error.
 - Child node should not exist in tree. If exist, it throw the error.
 
+
+```typescript
+tree.addChild(current, child);
+```
+
 #### search
+
+- Get nodes in subtree.
+- Result's type is `Set<T>`, not `T[]`.
 
 ```typescript
 const subTreeNodes = tree.search(start);
 ```
 
-- Get nodes in subtree.
-- Result's type is `Set<T>`, not `T[]`.
-
 #### delete
+
+- Delete itself and all nodes in its subtree.
+- So, It should not delete root.
 
 ```typescript
 tree.delete(node);
 ```
 
-- Delete itself and all nodes in its subtree.
-- So, It should not delete root.
-
 #### replace
-
-```typescript
-tree.replace(prev, next);
-```
 
 - A new node replaces the prev node and the structure of tree is maintained.
 - Prev node should exist in tree. If not exist, it throw the error.
 - New node should not exist in tree. If exist, it throw the error.
 
+
+```typescript
+tree.replace(prev, next);
+```
+
 #### root
+
+- Use `getRoot` to get the root data.
+- Use `isRoot` to know whether the data is root.
 
 ```typescript
 const tree = new Tree<number>(1);
@@ -78,10 +83,9 @@ console.log(tree.getRoot()); // 1
 console.log(tree.isRoot(2)); // false
 ```
 
-- Use `getRoot` to get root data.
-- Use `isRoot` to know whether the data is root.
-
 #### has
+
+- Check if a value exists.
 
 ```typescript
 const tree = new Tree<number>(1);
@@ -89,9 +93,11 @@ console.log(tree.has(1)); // true
 console.log(tree.has(2)); // false
 ```
 
-- Check if a value exists.
-
 #### get parent
+
+- Get parent of node.
+- If node is root, this returns `null`.
+- After `destroy()` or node not exists, it returns `undefined`.
 
 ```typescript
 const tree = new Tree<number>(1);
@@ -100,43 +106,39 @@ console.log(tree.getParent(1)); // null
 console.log(tree.getParent(2)); // 1
 ```
 
-- Get parent of node.
-- If node is root, this returns `null`.
-- After `destroy()` or node not exists, it returns `undefined`.
-
 #### get children
+
+- Get direct children of the node.
+- If node not exists, it returns `undefined`
 
 ```typescript
 tree.getChildren(node);
 ```
 
-- Get direct children of the node.
-- If node not exists, it returns `undefined`
-
 #### get depth
-
-```typescript
-tree.getDepth(node);
-```
 
 - Get depth of the node.
 - Root's depth is `0`.
 - If node not exists, it returns `undefined`
 
+```typescript
+tree.getDepth(node);
+```
+
 #### get all nodes
+
+- Get all nodes in the tree.
+- It's return type is `T[]`, not `Set<T>`.
 
 ```typescript
 tree.getAllNodes();
 ```
 
-- Get all nodes in the tree.
-- It's return type is `T[]`, not `Set<T>`.
-
 #### destroy
+
+- If you want to clear memory, call this.
+- After call this, this tree is no longer available.
 
 ```typescript
 tree.destroy();
 ```
-
-- If you want to clear memory, call this.
-- After call this, this tree is no longer available.
