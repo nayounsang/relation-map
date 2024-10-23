@@ -1,6 +1,7 @@
 import globals from "globals";
 import pluginJs from "@eslint/js";
 import tseslint, { parser } from "typescript-eslint";
+import jestPlugin from "eslint-plugin-jest";
 
 /**
  * **recommended rules from `@eslint/js`**
@@ -28,6 +29,28 @@ export default [
     rules: {
       ...pluginJs.configs.recommended.rules,
       ...tseslint.configs.recommended.rules,
+    },
+  },
+  {
+    files: ["**/*.spec.{js,ts}"],
+    plugins: {
+      jest: jestPlugin,
+    },
+    languageOptions: {
+      globals: {
+        describe: "readonly",
+        it: "readonly",
+        test: "readonly",
+        expect: "readonly",
+        beforeEach: "readonly",
+        afterEach: "readonly",
+        beforeAll: "readonly",
+        afterAll: "readonly",
+        jest: "readonly",
+      },
+    },
+    rules: {
+      ...jestPlugin.configs["flat/recommended"].rules,
     },
   },
 ];
