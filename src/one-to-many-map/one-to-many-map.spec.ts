@@ -19,14 +19,14 @@ describe('OneToManyMap', () => {
     oneToManyMap.set('room1', 2);
     oneToManyMap.set('room2', 1);
     expect(oneToManyMap.getByMany(1)).toBe('room2');
-    expect(oneToManyMap.getByOne('room2')?.has(1));
+    expect(oneToManyMap.getByOne('room2')?.has(1)).toBe(true);
     expect(oneToManyMap.getByOne('room1')?.has(1)).toBe(false);
   });
   it('should clean up memory when set causes empty state.', () => {
     oneToManyMap.set('room1', 1);
     oneToManyMap.set('room2', 1);
     expect(oneToManyMap.getByMany(1)).toBe('room2');
-    expect(oneToManyMap.getByOne('room2')?.has(1));
+    expect(oneToManyMap.getByOne('room2')?.has(1)).toBe(true);
     expect(oneToManyMap.hasOne('room1')).toBe(false);
   });
   it('should clean up memory when delete causes empty state.', () => {
