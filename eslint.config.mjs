@@ -10,6 +10,13 @@ import tseslint from "typescript-eslint";
  * **recommended rules from `typescript-eslint`**
  * - usage: `...tseslint.configs.recommended`
  * - [link](https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/recommended.ts)
+ * 
+ * If you want to ignore some of these,
+ * ```
+ * rules: {
+ *  'some-of-rules': 'off',
+ * }
+ * ```
  */
 export default [
   {files: ["src/**/*.{js,mjs,cjs,ts}"]},
