@@ -33,24 +33,6 @@ export default [
   },
   {
     files: ["**/*.spec.{js,ts}"],
-    plugins: {
-      jest: jestPlugin,
-    },
-    languageOptions: {
-      globals: {
-        describe: "readonly",
-        it: "readonly",
-        test: "readonly",
-        expect: "readonly",
-        beforeEach: "readonly",
-        afterEach: "readonly",
-        beforeAll: "readonly",
-        afterAll: "readonly",
-        jest: "readonly",
-      },
-    },
-    rules: {
-      ...jestPlugin.configs["flat/recommended"].rules,
-    },
+    ...jestPlugin.configs["flat/recommended"],
   },
 ];
