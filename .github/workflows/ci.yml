@@ -5,8 +5,27 @@ on:
     branches:
       - main
       - "**"
+    types: ["opened", "synchronize"]
 
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Check es-lint rules
+        run: npm run lint
+
   build:
     runs-on: ubuntu-latest
 
