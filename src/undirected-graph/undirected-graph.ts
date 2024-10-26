@@ -67,4 +67,8 @@ export class UndirectedGraph<T = any> {
   public getWeight(vertexA: T, vertexB: T) {
     return this.graph.get(vertexA)?.get(vertexB)?.weight;
   }
+
+  public isConnect(vertexA: T, vertexB: T) {
+    return this.graph.get(vertexA)?.has(vertexB);
+  }
 }
