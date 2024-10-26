@@ -27,4 +27,9 @@ describe("Undirected graph", () => {
     expect(graph.getAllEdges()).toContainEqual([2, 1, 100]);
   });
 
+  it("should update the weight of the edge",()=>{
+    graph.setEdge(1, 2, 100);
+    
+  })
+
 });

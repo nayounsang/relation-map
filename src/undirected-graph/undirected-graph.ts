@@ -63,4 +63,8 @@ export class UndirectedGraph<T = any> {
     }
     return edges;
   }
+
+  public getWeight(vertexA: T, vertexB: T) {
+    return this.graph.get(vertexA)?.get(vertexB)?.weight;
+  }
 }
