@@ -90,10 +90,24 @@ describe("Undirected graph", () => {
     expect(graph.isConnected(2, 1)).toBe(false);
   });
 
-  it("should delete a vertex",()=>{
+  it("should delete a vertex along with its connected edges", () => {
     graph.setEdge(1, 2);
     graph.deleteVertex(1);
-    
-        expect(graph.isConnected(2, 1)).toBe(false);
-  })
+    expect(graph.has(1)).toBe(false);
+    expect(graph.has(2)).toBe(true);
+    expect(graph.isConnected(2, 1)).toBe(false);
+  });
+
+  it("should clear connections", () => {
+    const neighbors = [1, 2, 3, 4];
+    neighbors.forEach((v) => {
+      graph.setEdge(1, v);
+    });
+    graph.clearConnections(1);
+    neighbors.forEach((v) => {
+      expect(graph.isConnected(v, 1)).toBe(false);
+    });
+    expect(graph.has(1)).toBe(true);
+    expect(graph.getNeighbors(1)).toHaveLength(0);
+  });
 });

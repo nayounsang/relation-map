@@ -30,7 +30,7 @@ export class UndirectedGraph<T = any> {
     });
     this.graph.delete(vertex);
   }
-  public clearNeighbors(vertex: T) {
+  public clearConnections(vertex: T) {
     this.graph.get(vertex)?.forEach((_meta, v) => {
       this.graph.get(v)?.delete(vertex);
     });
