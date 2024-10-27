@@ -58,7 +58,9 @@ export class UndirectedGraph<T = any> {
     const edges: [start: T, end: T, weight: number | undefined][] = [];
     for (const vertex of this.graph.keys()) {
       this.graph.get(vertex)?.forEach((_meta, v) => {
-        edges.push([vertex, v, _meta.weight]);
+        if (v >= vertex) {
+          edges.push([vertex, v, _meta.weight]);
+        }
       });
     }
     return edges;

@@ -25,7 +25,6 @@ describe("Undirected graph", () => {
     expect(graph.getNeighbors(1)).toContain(2);
     expect(graph.getNeighbors(2)).toContain(1);
     expect(graph.getAllEdges()).toContainEqual([1, 2, 100]);
-    expect(graph.getAllEdges()).toContainEqual([2, 1, 100]);
   });
 
   it("should update the weight of an edge", () => {
@@ -52,5 +51,25 @@ describe("Undirected graph", () => {
     expect(graph.isConnected(3, 1)).toBe(true);
   });
 
+  it("should know all vertices in graph", () => {
+    const verticesIncluded = [1, 2, 3, 4];
+    const verticesNotIncluded = [5, 6];
+    verticesIncluded.forEach((v) => {
+      graph.setVertex(v);
+    });
+    const vertices = graph.getAllVertices();
+    verticesIncluded.forEach((v) => {
+      expect(vertices).toContain(v);
+    });
+    verticesNotIncluded.forEach((v) => {
+      expect(vertices).not.toContain(v);
+    });
+  });
 
+  it("should know all edges in graph but without duplicates", () => {
+    
+    graph.setEdge(1,2)
+    graph.setEdge(2,3)
+    graph.setEdge(1,4)
+  });
 });
