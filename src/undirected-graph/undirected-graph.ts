@@ -30,7 +30,7 @@ export class UndirectedGraph<T = any> {
     });
     this.graph.delete(vertex);
   }
-  public clearNeighbors(vertex: T) {
+  public clearConnections(vertex: T) {
     this.graph.get(vertex)?.forEach((_meta, v) => {
       this.graph.get(v)?.delete(vertex);
     });
@@ -58,9 +58,19 @@ export class UndirectedGraph<T = any> {
     const edges: [start: T, end: T, weight: number | undefined][] = [];
     for (const vertex of this.graph.keys()) {
       this.graph.get(vertex)?.forEach((_meta, v) => {
-        edges.push([vertex, v, _meta.weight]);
+        if (v >= vertex) {
+          edges.push([vertex, v, _meta.weight]);
+        }
       });
     }
     return edges;
+  }
+
+  public getWeight(vertexA: T, vertexB: T) {
+    return this.graph.get(vertexA)?.get(vertexB)?.weight;
+  }
+
+  public isConnected(vertexA: T, vertexB: T) {
+    return !!this.graph.get(vertexA)?.has(vertexB);
   }
 }
