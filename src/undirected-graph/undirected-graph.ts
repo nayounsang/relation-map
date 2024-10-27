@@ -71,6 +71,6 @@ export class UndirectedGraph<T = any> {
   }
 
   public isConnected(vertexA: T, vertexB: T) {
-    return this.graph.get(vertexA)?.has(vertexB);
+    return !!this.graph.get(vertexA)?.has(vertexB);
   }
 }

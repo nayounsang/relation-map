@@ -24,7 +24,8 @@ describe("Undirected graph", () => {
     graph.setEdge(1, 2, 100);
     expect(graph.getNeighbors(1)).toContain(2);
     expect(graph.getNeighbors(2)).toContain(1);
-    expect(graph.getAllEdges()).toContainEqual([1, 2, 100]);
+    expect(graph.isConnected(1, 2)).toBe(true);
+    expect(graph.isConnected(2, 1)).toBe(true);
   });
 
   it("should update the weight of an edge", () => {
@@ -67,9 +68,32 @@ describe("Undirected graph", () => {
   });
 
   it("should know all edges in graph but without duplicates", () => {
-    
-    graph.setEdge(1,2)
-    graph.setEdge(2,3)
-    graph.setEdge(1,4)
+    const edgesToAdd = [
+      [1, 2],
+      [2, 3],
+      [1, 4],
+    ];
+    edgesToAdd.forEach((edge) => {
+      graph.setEdge(edge[0], edge[1]);
+    });
+    const edges = graph.getAllEdges();
+    edgesToAdd.forEach((edge) => {
+      expect(edges).toContainEqual([edge[0], edge[1], undefined]);
+    });
+    expect(edges.length).toBe(edgesToAdd.length);
   });
+
+  it("should delete existing edges", () => {
+    graph.setEdge(1, 2);
+    graph.deleteEdge(1, 2);
+    expect(graph.isConnected(1, 2)).toBe(false);
+    expect(graph.isConnected(2, 1)).toBe(false);
+  });
+
+  it("should delete a vertex",()=>{
+    graph.setEdge(1, 2);
+    graph.deleteVertex(1);
+    
+        expect(graph.isConnected(2, 1)).toBe(false);
+  })
 });
